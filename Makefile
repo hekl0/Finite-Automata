@@ -1,0 +1,31 @@
+#
+# File: Makefile
+# Creator: George Ferguson
+# Created: Thu Jun 30 11:00:49 2016
+# Time-stamp: <Sun Aug  5 15:17:51 EDT 2018 ferguson>
+#
+# Sample Makefile distributed with CSC173 Project 1 code bundle
+#
+# This Makefile builds the test programs for the data structures
+# distributed with the bundle, and show how you might use it to
+# build YOUR program for the project.
+#
+
+PROGRAMS = auto IntHashSet LinkedList BitSet
+
+CFLAGS = -g -std=c99 -Wall -Werror
+
+programs: $(PROGRAMS)
+
+main: dfa.o nfa.o main.o IntHashSet.o BitSet.o LinkedList.o part2/*.c part3/*.c
+	$(CC) -o $@ $^
+
+auto: dfa.o nfa.o main.o IntHashSet.o BitSet.o LinkedList.o part2/*.c part3/*.c
+	$(CC) -o $@ $^
+
+IntHashSet LinkedList BitSet:
+	$(CC) -o $@ $(CFLAGS) -DMAIN $@.c
+
+clean:
+	-rm $(PROGRAMS) *.o part2/*.o
+	# -rm -r *.dSYM
