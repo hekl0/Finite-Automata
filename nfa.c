@@ -25,8 +25,6 @@ NFA new_NFA(int nstates) {
 }
 
 void NFA_free(NFA nfa) {
-    free(nfa->transition);
-    free(nfa->stateAccepted);
     Set_free(nfa->initialSetState);
     free(nfa);
 }
@@ -76,6 +74,16 @@ bool NFA_execute(NFA nfa, char *input) {
 }
 
 void NFA_print(NFA nfa) {
-    // ???????????????????
-    printf("NFA with %d states\n", nfa->countState);
+    // // ???????????????????
+    // printf("NFA with %d states\n", nfa->countState);
+    char line[256];
+    while (true) {
+        printf("\tEnter input (\"quit\" to quit): ");
+        fgets(line, 256, stdin);
+        line[strlen(line)-1] = '\0'; // Remove \n
+        if (strcmp(line, "quit") == 0) break;
+        bool answer = NFA_execute(nfa, line);
+        printf("\t-> Result for input \"%s\": %s\n", line, (answer) ? "true" : "false");
+    }
+    printf("\n");
 }

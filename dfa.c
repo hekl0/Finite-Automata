@@ -24,8 +24,6 @@ DFA new_DFA(int nstates) {
 }
 
 void DFA_free(DFA dfa) {
-    free(dfa->transition);
-    free(dfa->stateAccepted);
     free(dfa);
 }
 
@@ -66,6 +64,16 @@ bool DFA_execute(DFA dfa, char *input) {
 }
 
 void DFA_print(DFA dfa) {
-    // ???????????????????
-    printf("DFA with %d states\n", dfa->countState);
+    // // ???????????????????
+    // printf("DFA with %d states\n", dfa->countState);
+    char line[256];
+    while (true) {
+        printf("\tEnter input (\"quit\" to quit): ");
+        fgets(line, 256, stdin);
+        line[strlen(line)-1] = '\0'; // Remove \n
+        if (strcmp(line, "quit") == 0) break;
+        bool answer = DFA_execute(dfa, line);
+        printf("\t-> Result for input \"%s\": %s\n", line, (answer) ? "true" : "false");
+    }
+    printf("\n");
 }
