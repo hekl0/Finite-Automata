@@ -62,6 +62,12 @@ void BitSet_free(BitSet this) {
 	}
 }
 
+BitSet BitSet_copy(BitSet this) {
+	BitSet copy = new_BitSet();
+	copy->bits = this->bits;
+	return copy;
+}
+
 /**
  * Return true if the given BitSet is empty.
  */

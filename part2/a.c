@@ -7,7 +7,6 @@
 static Set createDstSet(int dst) {
     Set set = new_Set(0);
     Set_insert(set, dst);
-    Set_free(set);
     return set;
 }
 

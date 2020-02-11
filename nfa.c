@@ -21,11 +21,18 @@ NFA new_NFA(int nstates) {
     nfa->countInput = MAX_TRANSITION;
     nfa->initialSetState = new_Set(nstates);
     Set_insert(nfa->initialSetState, 0);
+    for (int i = 0; i < MAX_STATE; i++)
+        for (int j = 0; j < MAX_TRANSITION; j++)
+            nfa->transition[i][j] = NULL;
     return nfa;
 }
 
 void NFA_free(NFA nfa) {
     Set_free(nfa->initialSetState);
+    for (int i = 0; i < MAX_STATE; i++)
+        for (int j = 0; j < MAX_TRANSITION; j++)
+            if (nfa->transition[i][j] != NULL)
+                Set_free(nfa->transition[i][j]);
     free(nfa);
 }
 
@@ -42,6 +49,8 @@ Set NFA_get_transitions(NFA nfa, Set setState, char sym) {
 }
 
 void NFA_add_transition(NFA nfa, int src, char sym, Set dst) {
+    if (nfa->transition[src][(unsigned char) sym] != NULL)
+        BitSet_free(nfa->transition[src][(unsigned char) sym]);
     nfa->transition[src][(unsigned char) sym] = dst;
 }
 
@@ -50,8 +59,12 @@ void NFA_add_transition_str(NFA nfa, int src, char *str, int dst) {
 }
 
 void NFA_add_transition_all(NFA nfa, int src, Set dst) {
-    for (int i = 0; i < nfa->countInput; i++)
-        nfa->transition[src][i] = dst;
+    for (int i = 0; i < nfa->countInput; i++) {
+        if (nfa->transition[src][i] != NULL)
+            BitSet_free(nfa->transition[src][i]);
+        nfa->transition[src][i] = BitSet_copy(dst);
+    }
+    BitSet_free(dst);
 }
 
 void NFA_set_accepting(NFA nfa, int state, bool value) {

@@ -41,6 +41,8 @@ extern unsigned long long int Bitset_toInt(BitSet this);
  */
 extern void BitSet_free(BitSet this);
 
+extern BitSet BitSet_copy(BitSet this);
+
 /**
  * Return true if the given BitSet is empty.
  */

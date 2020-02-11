@@ -50,7 +50,6 @@ void testPart3() {
 }
 
 int main( int argc, char** argv ) {
-    printf("%s", );
     printf("\n\t\t-----PART 1-----\n\n");
     testPart1();
 
