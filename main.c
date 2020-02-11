@@ -41,7 +41,7 @@ void testPart3() {
     for (int i = 0; i < 2; i++) {
         nfa = (*func_p2[i])();
         dfa = convertNFAtoDFA(nfa);
-
+        
         NFAtoDFA_print(nfa, dfa);
 
         DFA_free(dfa);

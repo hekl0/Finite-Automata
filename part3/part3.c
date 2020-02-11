@@ -25,6 +25,8 @@ DFA convertNFAtoDFA(NFA nfa) {
 }
 
 void NFAtoDFA_print(NFA nfa, DFA dfa) {
+    printf("Numebr of states in NFA: %d\n", NFA_get_size(nfa));
+    printf("Numebr of states in DFA: %d\n", DFA_get_size(dfa));
     char line[256];
     while (true) {
         printf("\tEnter input (\"quit\" to quit): ");
